@@ -336,6 +336,10 @@ export const addMember = async (projectId, userId, role = "Member", currentOrgan
 
   // Check if user exists
   const user = await User.findById(userId);
+  if (!user.organizations.includes(currentOrganizationId)) {
+    throw new Error('USER_NOT_BELONG_TO_ORGANIZATION');
+}
+
   if (!user) {
     throw new Error('USER_NOT_FOUND');
   }
